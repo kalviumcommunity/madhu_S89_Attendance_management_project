@@ -4,51 +4,35 @@
 //     public static void main(String[] args){
 //         System.out.println("Welcome to the School Attendance System Project!");
 //         System.out.println("Session 1: Project Setup and Orientation Complete.");
-//     }
 // }
 
 
 package com.school;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
         System.out.println("--- School Attendance System ---");
 
-        Student[] students = new Student[4];
-        students[0] = new Student("Alice Wonderland");
-        students[1] = new Student("Bob the builder");
-        students[2] = new Student("Charlie Chaplin");
-        students[3] = new Student("Dora Explorer");
+        // Create objects for Student, Teacher, and Staff
+        Student student1 = new Student("Alice", "10th Grade");
+        Student student2 = new Student("Bob", "9th Grade");
+        Student student3 = new Student("Charlie", "11th Grade");
+        Student student4 = new Student("Dora", "12th Grade");
 
-        Course[] courses = new Course[3];
-        courses[0] = new Course("Intro to programming");
-        courses[1] = new Course("Linear Algebra");
-        courses[2] = new Course("Physics 101");
+        Teacher teacher = new Teacher("Mr. Smith", "Mathematics");
+        Staff staff = new Staff("Mrs. Johnson", "Administrator");
 
-        System.out.println("\nRegistered Students: ");
-        for(Student student : students) {
-            if(student != null) student.displayDetails();
-        }
+        // Display details for each
+        System.out.println("\nDetails of Students:");
+        student1.displayDetails();
+        student2.displayDetails();
+        student3.displayDetails();
+        student4.displayDetails();
 
-        System.out.println("\nAvailable Courses: ");
-        for(Course course : courses) {
-            if (course != null) course.displayDetails();
-        }
+        System.out.println("\nDetails of Teacher:");
+        teacher.displayDetails();
 
-        List<AttendanceRecord> attendanceLog = new ArrayList<>();
-        attendanceLog.add(new AttendanceRecord(students[0].getStudentId(), courses[0].getCourseId(), "Present"));
-        attendanceLog.add(new AttendanceRecord(students[1].getStudentId(), courses[1].getCourseId(), "Absent"));
-        attendanceLog.add(new AttendanceRecord(students[2].getStudentId(), courses[2].getCourseId(), "Late")); // Invalid status
-        attendanceLog.add(new AttendanceRecord(students[3].getStudentId(), courses[0].getCourseId(), "Present"));
-
-        System.out.println("\nAttendance Records:");
-        for (AttendanceRecord record : attendanceLog) {
-            record.displayRecord();
-        }
-
-        System.out.println("\nSession 4: Encapsulation & Attendance Recording Complete");
+        System.out.println("\nDetails of Staff:");
+        staff.displayDetails();
     }
 }
