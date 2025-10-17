@@ -39,6 +39,38 @@ public class Main {
         Course math = new Course("Mathematics");
         Course science = new Course("Science");
 
+        // Create lists for AttendanceService
+        ArrayList<Student> allStudents = new ArrayList<>();
+        allStudents.add(alice);
+        allStudents.add(bob);
+        allStudents.add(charlie);
+        allStudents.add(dora);
+        
+        ArrayList<Course> allCourses = new ArrayList<>();
+        allCourses.add(math);
+        allCourses.add(science);
+
+        // Create AttendanceService
+        FileStorageService storageService = new FileStorageService();
+        AttendanceService attendanceService = new AttendanceService(storageService);
+
+        // Demonstrate overloaded markAttendance methods
+        System.out.println("\n--- Marking Attendance (Method 1: Using Objects) ---");
+        attendanceService.markAttendance(alice, math, "Present");
+        attendanceService.markAttendance(bob, science, "Absent");
+        
+        System.out.println("\n--- Marking Attendance (Method 2: Using IDs) ---");
+        attendanceService.markAttendance(3, 101, "Present", allStudents, allCourses);
+        attendanceService.markAttendance(4, 102, "Present", allStudents, allCourses);
+
+        // Demonstrate overloaded displayAttendanceLog methods
+        attendanceService.displayAttendanceLog();
+        attendanceService.displayAttendanceLog(alice);
+        attendanceService.displayAttendanceLog(math);
+
+        // Save attendance data
+        attendanceService.saveAttendanceData();
+        
         // Demonstrate polymorphism with school directory
         ArrayList<Person> schoolPeople = new ArrayList<>();
         schoolPeople.add(alice);
@@ -52,35 +84,10 @@ public class Main {
         
         displaySchoolDirectory(schoolPeople);
 
-        // Create attendance records with Student and Course objects
-        ArrayList<AttendanceRecord> records = new ArrayList<>();
-        records.add(new AttendanceRecord(alice, math, "Present"));
-        records.add(new AttendanceRecord(bob, science, "Absent"));
-        records.add(new AttendanceRecord(charlie, math, "Present"));
+        // Save other data to files
+        storageService.saveData(allStudents, "students.txt");
+        storageService.saveData(allCourses, "courses.txt");
         
-        System.out.println("\n--- Attendance Log ---");
-        for (AttendanceRecord record : records) {
-            record.displayRecord();
-        }
-
-        // Filter students for saving
-        ArrayList<Student> students = new ArrayList<>();
-        for (Person person : schoolPeople) {
-            if (person instanceof Student) {
-                students.add((Student) person);
-            }
-        }
-        
-        ArrayList<Course> courses = new ArrayList<>();
-        courses.add(math);
-        courses.add(science);
-
-        // Save data to files
-        FileStorageService storageService = new FileStorageService();
-        storageService.saveData(students, "students.txt");
-        storageService.saveData(courses, "courses.txt");
-        storageService.saveData(records, "attendance_log.txt");
-        
-        System.out.println("\nData saved to files successfully!");
+        System.out.println("\nAll data saved to files successfully!");
     }
 }
